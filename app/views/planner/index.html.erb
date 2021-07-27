@@ -1,2 +1,47 @@
-<h1>Planner#index</h1>
-<p>Find me in app/views/planner/index.html.erb</p>
+<div class="row justify-content-center" style="margin-top: 5rem;">
+    <div class="col-lg-6">
+        <h1 class="display-5 fw-bold lh-1 mb-3 text-center mb-5">Programmeerbalie</h1>
+        <h3 class="text-center">Wanneer?</h3>
+        <h5 class="text-center text-muted fw-light">Op welk moment wil je assistentie?</h5>
+    </div>
+</div>
+
+<form>
+    <% for i in 0..1 do %>
+    <div class="row justify-content-center">
+        <% for j in 0..2 do %>
+        <div class="col-lg-2">
+            <label class="card-input-label">
+                <input type="radio" name="slot" value="<%= i %>-<%= j %>" class="card-input-element">
+                <div class="card d-flex flex-row bg-light">
+                    <div class="card-body">
+                        <small class="text-uppercase text-muted">Vandaag</small>
+                        <h5 class="card-title mt-1">27 juli 2021</h5>
+                        <h6 class="card-subtitle text-muted">Om 13:00</h6>
+                        <a href="#" class=""></a>
+                    </div>
+                </div>
+            </label>
+        </div>
+        <% end %>
+    </div>
+    <% end %>
+
+    <div class="row mb-5 justify-content-center" style="margin-top: 2.5rem;">
+        <div class="col-lg-6">
+            <h3 class="text-center">Waarmee?</h3>
+            <h5 class="text-center text-muted fw-light">Met welke opdracht wil je assistentie?</h5>
+            <div class="form-floating mt-4">
+                <input type="text" class="form-control" id="opdracht" name="opdracht" placeholder="Opdracht" value="">
+                <label for="opdracht">Opdracht</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row my-5 justify-content-center">
+        <div class="col-lg-6">
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Maak afspraak</button>
+        </div>
+    </div>
+
+</form>
