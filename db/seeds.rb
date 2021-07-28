@@ -1,7 +1,60 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+# Load this data into the database using `db:seed` or `db:setup`.
+
+this_week = Date.current.cweek
+this_year = Date.current.cwyear
+
+next_week = (Date.current + 7).cweek
+next_year = (Date.current + 7).cwyear # this is not really next year, but next week's year
+
+slots = {
+    1 => {
+        9 => 1,
+        10 => 1,
+        11 => 2,
+        12 => 2,
+        13 => 1
+    },
+    2 => {
+        9 => 1,
+        10 => 1,
+        11 => 2,
+        12 => 2,
+        13 => 1
+    },
+    3 => {
+        9 => 1,
+        10 => 1,
+        11 => 2,
+        12 => 2,
+        13 => 1
+    },
+    4 => {
+        9 => 1,
+        10 => 1,
+        11 => 2,
+        12 => 2,
+        13 => 1
+    },
+    5 => {
+        12 => 2,
+        13 => 1
+    },
+}
+
+Schedule.find_or_create_by(week: this_week, year: this_year) do |schedule|
+    schedule.slots = slots
+end
+
+Schedule.find_or_create_by(week: next_week, year: next_year) do |schedule|
+    schedule.slots = slots
+end
+
+Appointment.find_or_create_by(hour: 9, day: 2, week: this_week, year: this_week) do |app|
+    app.user = User.first
+    app.subject = "Scratch"
+end
+
+Appointment.find_or_create_by(hour: 10, day: 2, week: this_week, year: this_week) do |app|
+    app.user = User.first
+    app.subject = "Scratch"
+end

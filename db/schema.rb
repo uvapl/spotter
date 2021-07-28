@@ -10,7 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_26_174707) do
+ActiveRecord::Schema.define(version: 2021_07_28_082956) do
+
+  create_table "appointments", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "hour", null: false
+    t.integer "day", null: false
+    t.integer "week", null: false
+    t.integer "year", null: false
+    t.text "subject"
+    t.string "note"
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_appointments_on_user_id"
+  end
+
+  create_table "schedules", force: :cascade do |t|
+    t.integer "week"
+    t.integer "year"
+    t.text "slots"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["week", "year"], name: "index_schedules_on_week_and_year", unique: true
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
@@ -22,4 +45,5 @@ ActiveRecord::Schema.define(version: 2021_07_26_174707) do
     t.index ["login"], name: "index_users_on_login", unique: true
   end
 
+  add_foreign_key "appointments", "users"
 end
