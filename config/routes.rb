@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-    resources 'planner', only: :index
+    resources 'planner', only: [ :index, :show ]
     resources 'users', only: [ :new, :create ]
     get 'logout', to: 'users#logout'
     root to: "home#index"

@@ -2,6 +2,7 @@ class Appointment < ApplicationRecord
     SLOTS_PER_HOUR = 4
 
     belongs_to :user
+    belongs_to :course
 
     # see https://api.rubyonrails.org/classes/ActiveRecord/Enum.html
     enum status: { active: 0, cancelled: 1, done: 2 }

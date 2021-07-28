@@ -1,5 +1,8 @@
 # Load this data into the database using `db:seed` or `db:setup`.
 
+c1 = Course.find_or_create_by(name: 'Minor Programmeren')
+c2 = Course.find_or_create_by(name: 'Programmeren IK')
+
 this_week = Date.current.cweek
 this_year = Date.current.year
 
@@ -42,20 +45,24 @@ slots = {
     },
 }
 
-Schedule.find_or_create_by(week: this_week, year: this_year) do |schedule|
+Schedule.delete_all
+
+Schedule.find_or_create_by(course: c1, week: this_week, year: this_year) do |schedule|
     schedule.slots = slots
 end
 
-Schedule.find_or_create_by(week: next_week, year: next_year) do |schedule|
+Schedule.find_or_create_by(course: c1, week: next_week, year: next_year) do |schedule|
     schedule.slots = slots
 end
 
-Appointment.find_or_create_by!(slot: 1, hour: 9, day: 2, week: this_week, year: this_year) do |app|
+Appointment.delete_all
+
+Appointment.find_or_create_by!(course: c1, slot: 1, hour: 9, day: 2, week: this_week, year: this_year) do |app|
     app.user = User.first
     app.subject = "Scratch"
 end
 
-Appointment.find_or_create_by!(slot: 2, hour: 10, day: 2, week: next_week, year: next_year) do |app|
+Appointment.find_or_create_by!(course: c1, slot: 2, hour: 10, day: 2, week: next_week, year: next_year) do |app|
     app.user = User.first
     app.subject = "Scratch"
 end

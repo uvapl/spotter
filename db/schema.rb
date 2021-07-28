@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_28_082956) do
+ActiveRecord::Schema.define(version: 2021_07_28_132150) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -24,7 +24,15 @@ ActiveRecord::Schema.define(version: 2021_07_28_082956) do
     t.integer "status", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "course_id", default: 0, null: false
+    t.index ["course_id"], name: "index_appointments_on_course_id"
     t.index ["user_id"], name: "index_appointments_on_user_id"
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "schedules", force: :cascade do |t|
@@ -33,6 +41,8 @@ ActiveRecord::Schema.define(version: 2021_07_28_082956) do
     t.text "slots"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "course_id", default: 0, null: false
+    t.index ["course_id"], name: "index_schedules_on_course_id"
     t.index ["week", "year"], name: "index_schedules_on_week_and_year", unique: true
   end
 
@@ -46,5 +56,7 @@ ActiveRecord::Schema.define(version: 2021_07_28_082956) do
     t.index ["login"], name: "index_users_on_login", unique: true
   end
 
+  add_foreign_key "appointments", "courses"
   add_foreign_key "appointments", "users"
+  add_foreign_key "schedules", "courses"
 end
