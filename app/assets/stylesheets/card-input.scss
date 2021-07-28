@@ -1,0 +1,66 @@
+/*
+ * This file contains the styles required to use cards as radioboxes.
+ * Loosely based upon an example found here: https://jsfiddle.net/djibe89/at2cv9q1/.
+ */
+
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+
+.card-input-label {
+    width: 100%;
+}
+
+.card-input-element {
+    opacity: 0;
+}
+
+.card-input-element+.card {
+    border: 2px solid transparent;
+}
+
+.card-input-element+.card:hover {
+    cursor: pointer;
+}
+
+.card-input-element:checked+.card {
+    border: 2px solid var(--bs-primary);
+    -webkit-transition: border .3s;
+    -o-transition: border .3s;
+    transition: border .3s;
+}
+
+.card-input-element:checked+.card::after {
+    content: '\e5ca';
+    padding-top: 2px;
+    padding-right: 5px;
+    color: var(--bs-primary);
+    font-family: 'Material Icons';
+    font-size: 24px;
+    -webkit-animation-name: fadeInCheckbox;
+    animation-name: fadeInCheckbox;
+    -webkit-animation-duration: .5s;
+    animation-duration: .5s;
+    -webkit-animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@-webkit-keyframes fadeInCheckbox {
+    from {
+        opacity: 0;
+        -webkit-transform: rotateZ(-20deg);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: rotateZ(0deg);
+    }
+}
+
+@keyframes fadeInCheckbox {
+    from {
+        opacity: 0;
+        transform: rotateZ(-20deg);
+    }
+    to {
+        opacity: 1;
+        transform: rotateZ(0deg);
+    }
+}
