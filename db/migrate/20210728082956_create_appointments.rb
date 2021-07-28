@@ -2,6 +2,7 @@ class CreateAppointments < ActiveRecord::Migration[6.1]
     def change
         create_table :appointments do |t|
             t.references :user, null: false, foreign_key: true
+            t.integer :slot, null: false
             t.integer :hour, null: false
             t.integer :day, null: false
             t.integer :week, null: false

@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 2021_07_28_082956) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer "user_id", null: false
+    t.integer "slot", null: false
     t.integer "hour", null: false
     t.integer "day", null: false
     t.integer "week", null: false
