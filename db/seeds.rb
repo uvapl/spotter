@@ -54,7 +54,7 @@ Appointment.find_or_create_by!(slot: 1, hour: 9, day: 2, week: this_week, year: 
     app.subject = "Scratch"
 end
 
-Appointment.find_or_create_by!(slot: 2, hour: 10, day: 2, week: this_week, year: next_year) do |app|
+Appointment.find_or_create_by!(slot: 2, hour: 10, day: 2, week: next_week, year: next_year) do |app|
     app.user = User.first
     app.subject = "Scratch"
 end
