@@ -7,25 +7,29 @@
 </div>
 
 <form>
-    <% for i in 0..1 do %>
     <div class="row justify-content-center">
-        <% for j in 0..2 do %>
-        <div class="col-lg-2">
-            <label class="card-input-label">
-                <input type="radio" name="slot" value="<%= i %>-<%= j %>" class="card-input-element">
-                <div class="card d-flex flex-row bg-light">
-                    <div class="card-body">
-                        <small class="text-uppercase text-muted">Vandaag</small>
-                        <h5 class="card-title mt-1">27 juli 2021</h5>
-                        <h6 class="card-subtitle text-muted">Om 13:00</h6>
-                        <a href="#" class=""></a>
-                    </div>
+        <% i = 0%>
+        <% @suggestions.each do |suggestion| %>
+            <% if i % 3 == 0 %>
                 </div>
-            </label>
-        </div>
+                <div class="row justify-content-center">
+            <% end %>
+            <div class="col-lg-2">
+                <label class="card-input-label">
+                    <input type="radio" name="slot" value="<%= suggestion["date"] %>" class="card-input-element">
+                    <div class="card d-flex flex-row bg-light">
+                        <div class="card-body">
+                            <small class="text-uppercase text-muted"><%= suggestion["daytext"] %></small>
+                            <h5 class="card-title mt-1"><%= suggestion["date"] %></h5>
+                            <h6 class="card-subtitle text-muted">Om <%= suggestion["time"] %></h6>
+                            <a href="#" class=""></a>
+                        </div>
+                    </div>
+                </label>
+            </div>
+            <% i += 1 %>
         <% end %>
     </div>
-    <% end %>
 
     <div class="row mb-5 justify-content-center" style="margin-top: 2.5rem;">
         <div class="col-lg-6">
