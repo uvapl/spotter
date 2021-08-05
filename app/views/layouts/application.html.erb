@@ -9,18 +9,18 @@
     <%= stylesheet_link_tag 'application', media: 'all' %>
 </head>
 
-<body>
-    <nav class="navbar sticky-top border-bottom">
+<body class="bg-white">
+    <nav class="navbar sticky-top bg-white border-bottom">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">Programmeerbalie</a>
-            <span class="ms-auto">
+            <a class="navbar-brand fw-bold" href="/">Programmeerbalie</a>
+            <span class="ms-auto d-none d-sm-block text-muted">
                 <% if signed_in? %>
                     <%= current_user.name %>
                 <% elsif request.session['cas'] %>
                     <%= request.session['cas']['user'] %>
                 <% end %>
             </span>
-            <%= button_to 'Logout', logout_path, method: :post, class: 'btn btn-outline-secondary ms-3' %>
+            <%= button_to 'Logout', logout_path, method: :post, class: 'btn btn-sm btn-outline-secondary ms-3' %>
         </div>
     </nav>
     <% if notice.present? %>
@@ -29,7 +29,7 @@
     <% if alert.present? %>
     <p class="alert alert-danger"><%= alert %></p>
     <% end %>
-    <div class="container mt-5">
+    <div class="container mt-4 mt-md-5">
         <%= yield %>
     </div>
 </body>
