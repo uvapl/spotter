@@ -1,4 +1,8 @@
 class AppointmentsController < ApplicationController
+    before_action do
+        render status: :forbidden if not signed_in?
+    end
+
     def create
         course = Course.find params[:course_id]
         date = Time.at(filter_params[:slot].to_i).to_datetime

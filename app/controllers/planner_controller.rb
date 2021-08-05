@@ -1,4 +1,8 @@
 class PlannerController < ApplicationController
+    before_action do
+        redirect_to :root if not signed_in?
+    end
+
     def index
         @courses = Course.all
     end
