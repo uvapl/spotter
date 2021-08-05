@@ -13,4 +13,8 @@ class Course < ApplicationRecord
     def next_week
         find_week (Date.current + 7).year, (Date.current + 7).cweek
     end
+
+    def to_param
+        "#{id}-#{name.parameterize}"
+    end
 end

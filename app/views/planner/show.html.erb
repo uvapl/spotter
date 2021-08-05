@@ -7,47 +7,38 @@
     </div>
 </div>
 
-<form>
-    <div class="row justify-content-center">
-        <% i = 0%>
-        <% @suggestions.each do |suggestion| %>
-            <% if i % 3 == 0 %>
-                </div>
-                <div class="row justify-content-center">
-            <% end %>
-            <div class="col-md-4 col-lg-3">
-                <label class="card-input-label">
-                    <%= form.radio_button :slot, suggestion["dt"].to_i, checked: @suggestions.first==suggestion, class: "card-input-element" %>
-                    <div class="card d-flex flex-row bg-light">
-                        <div class="card-body align-items-baseline">
-                            <h3 class="card-title mt-0 mt-sm-1 mb-0"><%= suggestion["daytext"] %></h5>
-                            <small class="text-uppercase text-muted"><%= suggestion["date"] %></small>
-                            <h3 class="card-subtitle mt-0 mt-md-2"><%= suggestion["time"] %></h6>
-                        </div>
+<div class="row justify-content-center flex-wrap mx-md-auto" style="max-width: 50rem;">
+    <% @suggestions.each do |suggestion| %>
+        <div class="col-md-4">
+            <label class="card-input-label">
+                <%= form.radio_button :slot, suggestion["dt"].to_i, checked: @suggestions.first==suggestion, class: "card-input-element" %>
+                <div class="card d-flex flex-row bg-light">
+                    <div class="card-body align-items-baseline">
+                        <h3 class="card-title mt-0 mt-sm-1 mb-0"><%= suggestion["daytext"] %></h5>
+                        <small class="text-uppercase text-muted"><%= suggestion["date"] %></small>
+                        <h3 class="card-subtitle mt-0 mt-md-2"><%= suggestion["time"] %></h6>
                     </div>
-                </label>
-            </div>
-            <% i += 1 %>
-        <% end %>
-    </div>
+                </div>
+            </label>
+        </div>
+    <% end %>
+</div>
 
-    <div class="row mb-3 mb-md-5 justify-content-center" style="margin-top: 2.5rem;">
-        <div class="col-lg-6">
-            <h3 class="text-center">Waarmee?</h3>
-            <h5 class="text-center text-muted fw-light">Met welke opdracht wil je assistentie?</h5>
-            <div class="form-floating mt-4">
-                <%= form.text_field :subject, class: "form-control", placeholder: "Opdracht", value: "" %>
-                <%= form.label :subject, text: 'Opdracht' %>
-            </div>
+<div class="row mb-3 mb-md-5 justify-content-center" style="margin-top: 2.5rem;">
+    <div class="col-lg-6">
+        <h3 class="text-center">Waarmee?</h3>
+        <h5 class="text-center text-muted fw-light">Met welke opdracht wil je assistentie?</h5>
+        <div class="form-floating mt-4">
+            <%= form.text_field :subject, class: "form-control", placeholder: "Opdracht", value: "", required: true, autofocus: true %>
+            <%= form.label :subject, text: 'Opdracht' %>
         </div>
     </div>
+</div>
 
-    <div class="row mb-3 mb-md-5 justify-content-center">
-        <div class="col-lg-6">
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Maak afspraak</button>
-        </div>
+<div class="row mb-3 mb-md-5 justify-content-center">
+    <div class="col-lg-6">
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Maak afspraak</button>
     </div>
-
-</form>
+</div>
 
 <% end %>

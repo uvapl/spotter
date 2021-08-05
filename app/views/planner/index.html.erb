@@ -6,6 +6,6 @@
 
 <ul>
 <% @courses.each do |course| %>
-<li><%= link_to course.name, planner_path(course.id) %></li>
+<li><%= link_to course.name, planner_path(course) %></li>
 <% end %>
 </ul>

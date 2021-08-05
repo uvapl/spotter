@@ -11,10 +11,9 @@ class AppointmentsController < ApplicationController
                                  week: date.cweek,
                                  year: date.year,
                                  subject: filter_params[:subject]
-        redirect_to :root
     end
     
     def filter_params
-        params.require(:appointment).permit(:course, :slot, :hour, :day, :week, :year, :subject)
+        params.require(:appointment).permit(:slot, :subject)
     end
 end
