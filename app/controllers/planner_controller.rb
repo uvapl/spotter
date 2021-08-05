@@ -5,35 +5,28 @@ class PlannerController < ApplicationController
 
     def show
         @course = Course.find(params[:id])
-
-        # get this week's slots
-        this_week = @course.schedules.where(year: Date.current.year, week: Date.current.cweek).first
-        this_week = this_week.slots.select{|k,v| k >= Date.current.wday}
-
-        # get next week's slots
-        next_week = @course.schedules.where(year: (Date.current + 7).year, week: (Date.current + 7).cweek).first
-
         @suggestions = []
 
-        if !this_week.empty? then
-            # if there are still days left this week, suggest 4 slots on the first day
-            day = this_week.keys.first
-            @suggestions += helpers.slots_to_suggestions(@course, Date.current.year, Date.current.cweek, day, this_week[day], 4)
+        # start with 4 suggestions for today
+        schedule_this_week = @course.this_week.slots
+        day, slots = schedule_this_week.today
+        @suggestions += helpers.slots_to_suggestions(
+            @course, Date.current.year, Date.current.cweek,
+            day, slots, 4)
 
-            # fill the remaining slots with the next available day
-            remaining = @suggestions.count > 1 ? 2 : 4
-
-            if this_week.keys.count >= 2 then
-                day = this_week.keys[1]
-                @suggestions += helpers.slots_to_suggestions(@course, Date.current.year, Date.current.cweek, day, this_week[day], remaining)
-            else
-                day = next_week.keys.first
-                @suggestions += helpers.slots_to_suggestions(@course, (Date.current + 7).year, (Date.current + 7).cweek, day, next_week[day], remaining)
-            end
+        if day <= 4
+            # if today is Mon-Thu, fill up with suggestions for tomorrow
+            day, slots = schedule_this_week.tomorrow
+            @suggestions += helpers.slots_to_suggestions(
+                @course, Date.current.year, Date.current.cweek,
+                day, slots, 6 - @suggestions.count)
         else
-            # if there are no more slots available this week, suggest 4 slots on the first available day next week
-            day = next_week.keys.first
-            @suggestions += helpers.slots_to_suggestions(@course, (Date.current + 7).year, (Date.current + 7).cweek, day, next_week[day], 6)
+            # if it's Friday or weekend, add suggestions for Monday next week
+            schedule_next_week = @course.next_week.slots
+            day, slots = schedule_next_week.monday
+            @suggestions += helpers.slots_to_suggestions(
+                @course, (Date.current + 7).year, (Date.current + 7).cweek,
+                day, slots, 6 - @suggestions.count)
         end
     end
 end

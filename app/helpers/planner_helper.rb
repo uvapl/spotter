@@ -14,7 +14,7 @@ module PlannerHelper
             # run through the available slots within the hour
             for i in 1..SLOTS_PER_HOUR do
                 # skip if the slot is less than 1 hour away
-                if today && (hour <= now.hour || (hour == now.hour + 1 && now.min > (i-1) * 60 / SLOTS_PER_HOUR)) then
+                if today && (hour <= now.hour || (hour == now.hour + 1 && now.min > (i-1) * 60 / SLOTS_PER_HOUR))
                     next
                 end
 
@@ -22,7 +22,7 @@ module PlannerHelper
                 taken = course.appointments.where(year: year, week: week, day: day, hour: hour, slot: i).count
 
                 # skip if all available places are already filled
-                if taken < slots[hour] then
+                if taken < slots[hour]
                     options.push([hour, i])
                 end 
             end
@@ -38,12 +38,12 @@ module PlannerHelper
         srand(current_user.id || 9393927)
 
         # skip if there are no options
-        if options.count < 1 then
+        if options.count < 1 || amount <= 0
             return []
         end
 
         # if we need 2 suggestions or less, always get random options (must be at least 1,5 hour apart)
-        if amount <= 2 then
+        if amount <= 2
             # get a random option
             selected = options.sample
             all_selected.push(selected)
@@ -62,7 +62,7 @@ module PlannerHelper
                 sdiff = (selected[1] - result[0]["slot"]).abs
 
                 # check if it is at least 1,5 hour from the first selected option
-                if (hdiff == 1 && sdiff > 2) || hdiff > 1 then
+                if (hdiff == 1 && sdiff > 2) || hdiff > 1
                     all_selected.push(selected)
                     result.push(hour_slot_to_result(course, year, week, day, selected))
                 end
@@ -82,7 +82,7 @@ module PlannerHelper
                 selected = select_candidates(amount, all_selected.count, options).sample
 
                 # check that it is not already selected
-                if !all_selected.include? selected then
+                if !all_selected.include? selected
                     all_selected.push(selected)
                     result.push(hour_slot_to_result(course, year, week, day, selected))
                 end
@@ -96,11 +96,11 @@ module PlannerHelper
         # make sure we're looking for options in the right segment of the day
         complete = count.to_f / amount.to_f
 
-        if complete < 0.5 then
+        if complete < 0.5
             return options.slice(0, (options.count / 2) - 1)
         end
 
-        if complete < 0.75 then
+        if complete < 0.75
             return options.slice(options.count / 2, (options.count / 4 * 3) - 1)
         end
 
@@ -124,11 +124,11 @@ module PlannerHelper
 
     def daytext(dt)
         # return a human-friendly day name
-        if dt.today? then
+        if dt.today?
             return "Vandaag"
         end
 
-        if dt.to_date == Date.tomorrow then
+        if dt.to_date == Date.tomorrow
             return "Morgen"
         end
 
