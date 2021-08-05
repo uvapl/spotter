@@ -1,3 +1,5 @@
+<%= form_for [@course, @appointment] do |form| %>
+
 <div class="row justify-content-center" style="margin-top: 5rem;">
     <div class="col-lg-6">
         <h1 class="display-5 fw-bold lh-1 mb-3 text-center mb-5">Programmeerbalie</h1>
@@ -16,13 +18,12 @@
             <% end %>
             <div class="col-lg-2">
                 <label class="card-input-label">
-                    <input type="radio" name="slot" value="<%= suggestion["date"] %>" class="card-input-element">
+                    <%= form.radio_button :slot, suggestion["dt"].to_i, class: "card-input-element" %>
                     <div class="card d-flex flex-row bg-light">
                         <div class="card-body">
                             <small class="text-uppercase text-muted"><%= suggestion["daytext"] %></small>
                             <h5 class="card-title mt-1"><%= suggestion["date"] %></h5>
                             <h6 class="card-subtitle text-muted">Om <%= suggestion["time"] %></h6>
-                            <a href="#" class=""></a>
                         </div>
                     </div>
                 </label>
@@ -36,8 +37,8 @@
             <h3 class="text-center">Waarmee?</h3>
             <h5 class="text-center text-muted fw-light">Met welke opdracht wil je assistentie?</h5>
             <div class="form-floating mt-4">
-                <input type="text" class="form-control" id="opdracht" name="opdracht" placeholder="Opdracht" value="">
-                <label for="opdracht">Opdracht</label>
+                <%= form.text_field :subject, class: "form-control", placeholder: "Opdracht", value: "" %>
+                <%= form.label :subject, text: 'Opdracht' %>
             </div>
         </div>
     </div>
@@ -49,3 +50,5 @@
     </div>
 
 </form>
+
+<% end %>

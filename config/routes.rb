@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
     resources 'planner', only: [ :index, :show ]
+    resources 'courses', only: [] do
+        resources 'appointments', only: [ :create ]
+    end
     resources 'users', only: [ :new, :create ]
     get 'logout', to: 'users#logout'
     root to: "home#index"

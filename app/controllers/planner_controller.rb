@@ -28,5 +28,7 @@ class PlannerController < ApplicationController
                 @course, (Date.current + 7).year, (Date.current + 7).cweek,
                 day, slots, 6 - @suggestions.count)
         end
+
+        @appointment = Appointment.new
     end
 end

@@ -109,8 +109,8 @@ module PlannerHelper
 
     def hour_slot_to_result(course, year, week, day, slot)
         # convert to the format required for rendering the page
-        dt = DateTime.commercial(year, week, day, slot[0], (slot[1]-1).to_f/SLOTS_PER_HOUR*60)
-
+        dt = DateTime.commercial(
+            year, week, day, slot[0], (slot[1]-1).to_f/SLOTS_PER_HOUR*60, 0, '+2')
         return {"daytext" => daytext(dt), 
                 "date" => dt.to_date.mday.to_s + " " + MONTHS[dt.to_date.mon], 
                 "time" => dt.strftime("%H:%M"),
