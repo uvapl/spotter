@@ -10,17 +10,17 @@
 </head>
 
 <body>
-    <nav class="navbar sticky-top navbar-dark bg-dark">
+    <nav class="navbar sticky-top border-bottom">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">Spotter</a>
-            <span class="ms-auto text-light">
+            <a class="navbar-brand" href="/">Programmeerbalie</a>
+            <span class="ms-auto">
                 <% if signed_in? %>
                     <%= current_user.name %>
                 <% elsif request.session['cas'] %>
                     <%= request.session['cas']['user'] %>
                 <% end %>
             </span>
-            <%= button_to 'Logout', logout_path, method: :post, class: 'btn btn-outline-light ms-3' %>
+            <%= button_to 'Logout', logout_path, method: :post, class: 'btn btn-outline-secondary ms-3' %>
         </div>
     </nav>
     <% if notice.present? %>

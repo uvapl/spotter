@@ -21,9 +21,9 @@
                     <%= form.radio_button :slot, suggestion["dt"].to_i, class: "card-input-element" %>
                     <div class="card d-flex flex-row bg-light">
                         <div class="card-body">
-                            <small class="text-uppercase text-muted"><%= suggestion["daytext"] %></small>
-                            <h5 class="card-title mt-1"><%= suggestion["date"] %></h5>
-                            <h6 class="card-subtitle text-muted">Om <%= suggestion["time"] %></h6>
+                            <h5 class="card-title mt-1 mb-0"><%= suggestion["daytext"] %></h5>
+                            <small class="text-uppercase text-muted"><%= suggestion["date"] %></small>
+                            <h3 class="card-subtitle mt-2"><%= suggestion["time"] %></h6>
                         </div>
                     </div>
                 </label>
