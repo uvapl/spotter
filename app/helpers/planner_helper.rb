@@ -14,11 +14,7 @@ module PlannerHelper
             # run through the available slots within the hour
             for i in 1..SLOTS_PER_HOUR do
                 # skip if the slot is less than 1 hour away
-<<<<<<< HEAD
                 if today && (hour <= now.hour || (hour == now.hour + 1 && now.min > (i-1) * 60 / SLOTS_PER_HOUR))
-=======
-                if today && (hour <= now.hour || (hour == now.hour + 1 && now.min > (i-1) * 60 / SLOTS_PER_HOUR)) then
->>>>>>> 4328dd3a31589471698a25b7263b6a07578d5a50
                     next
                 end
 
@@ -26,11 +22,7 @@ module PlannerHelper
                 taken = course.appointments.where(year: year, week: week, day: day, hour: hour, slot: i).count
 
                 # skip if all available places are already filled
-<<<<<<< HEAD
                 if taken < slots[hour]
-=======
-                if taken < slots[hour] then
->>>>>>> 4328dd3a31589471698a25b7263b6a07578d5a50
                     options.push([hour, i])
                 end 
             end
@@ -46,20 +38,12 @@ module PlannerHelper
         srand(current_user.id || 9393927)
 
         # skip if there are no options
-<<<<<<< HEAD
         if options.count < 1 || amount <= 0
-=======
-        if options.count < 1 then
->>>>>>> 4328dd3a31589471698a25b7263b6a07578d5a50
             return []
         end
 
         # if we need 2 suggestions or less, always get random options (must be at least 1,5 hour apart)
-<<<<<<< HEAD
         if amount <= 2
-=======
-        if amount <= 2 then
->>>>>>> 4328dd3a31589471698a25b7263b6a07578d5a50
             # get a random option
             selected = options.sample
             all_selected.push(selected)
@@ -78,11 +62,7 @@ module PlannerHelper
                 sdiff = (selected[1] - result[0]["slot"]).abs
 
                 # check if it is at least 1,5 hour from the first selected option
-<<<<<<< HEAD
                 if (hdiff == 1 && sdiff > 2) || hdiff > 1
-=======
-                if (hdiff == 1 && sdiff > 2) || hdiff > 1 then
->>>>>>> 4328dd3a31589471698a25b7263b6a07578d5a50
                     all_selected.push(selected)
                     result.push(hour_slot_to_result(course, year, week, day, selected))
                 end
@@ -102,11 +82,7 @@ module PlannerHelper
                 selected = select_candidates(amount, all_selected.count, options).sample
 
                 # check that it is not already selected
-<<<<<<< HEAD
                 if !all_selected.include? selected
-=======
-                if !all_selected.include? selected then
->>>>>>> 4328dd3a31589471698a25b7263b6a07578d5a50
                     all_selected.push(selected)
                     result.push(hour_slot_to_result(course, year, week, day, selected))
                 end
