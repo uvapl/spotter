@@ -3,9 +3,22 @@ class AppointmentsController < ApplicationController
         render status: :forbidden if not signed_in?
     end
 
+    def complete
+        head :no_content
+
+        appointment = Appointment.find params[:appointment_id]
+        appointment.status = 2
+        appointment.save!
+    end
+
     def create
         course = Course.find params[:course_id]
         date = Time.at(filter_params[:slot].to_i).to_datetime
+
+        # catch nonsensical times
+        if filter_params[:slot].to_i < 1
+            raise ActionController::RoutingError.new('Invalid Time')
+        end
 
         a = Appointment.create!  user: current_user,
                                  course: course,

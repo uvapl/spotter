@@ -1,0 +1,19 @@
+// Place all the styles related to the live controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.card-x {
+    padding-top: 5px;
+    padding-right: 5px;
+    color: var(--bs-gray);
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.card-x:hover {
+    color: var(--bs-primary);
+}
+
+.live-row, .live-col {
+    transition: opacity 0.4s;
+}
