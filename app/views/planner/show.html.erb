@@ -22,6 +22,10 @@
             </label>
         </div>
     <% end %>
+
+    <% if @suggestions.count == 0%>
+        <p class="text-center pt-3 text-muted">Er zijn geen slots meer beschikbaar! 🤨</p>
+    <% end %>
 </div>
 
 <div class="row mb-3 mb-md-5 justify-content-center" style="margin-top: 2.5rem;">
