@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_05_144009) do
+ActiveRecord::Schema.define(version: 2021_09_05_174834) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -47,8 +47,8 @@ ActiveRecord::Schema.define(version: 2021_09_05_144009) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "course_id", default: 0, null: false
+    t.index ["course_id", "week", "year"], name: "index_schedules_on_course_id_and_week_and_year", unique: true
     t.index ["course_id"], name: "index_schedules_on_course_id"
-    t.index ["week", "year"], name: "index_schedules_on_week_and_year", unique: true
   end
 
   create_table "users", force: :cascade do |t|
