@@ -1,5 +1,4 @@
 module PlannerHelper
-    SLOTS_PER_HOUR = 4
     DAYS = ["Zondag", "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag"]
     MONTHS = ["n/a", "januari", "februari", "maart", "april", "mei", "juni",
               "juli", "augustus", "september", "oktober", "november", "december"]
@@ -72,7 +71,7 @@ module PlannerHelper
         # run through the available hours
         slots.keys.each do |hour|
             # run through the available slots within the hour
-            for i in 1..SLOTS_PER_HOUR do
+            for i in 1..course.slots do
                 # add if no bookings for the slot or less than available
                 if !bookings[[hour,i]] || bookings[[hour,i]] < slots[hour]
                     options.push([hour, i])
@@ -101,7 +100,7 @@ module PlannerHelper
     def hour_slot_to_result(course, year, week, day, slot)
         # convert to the format required for rendering the page
         dt = DateTime.commercial(
-            year, week, day, slot[0], (slot[1]-1).to_f/SLOTS_PER_HOUR*60, 0, '+2')
+            year, week, day, slot[0], (slot[1]-1).to_f/course.slots*60, 0, '+2')
         return {"daytext" => daytext(dt),
                 "date" => dt.to_date.mday.to_s + " " + MONTHS[dt.to_date.mon],
                 "time" => dt.strftime("%H:%M"),

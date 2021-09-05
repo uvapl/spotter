@@ -18,7 +18,7 @@ class PlannerController < ApplicationController
             @course, Date.current.year, Date.current.cweek,
             day, slots, 4)
 
-        if day <= 4
+        if day <= 4 && day >= 1
             # if today is Mon-Thu, fill up with suggestions for tomorrow
             day, slots = schedule_this_week.tomorrow
             @suggestions += helpers.get_available_slots(

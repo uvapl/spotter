@@ -37,7 +37,7 @@
             <%= form.label :subject do 'Opdracht' end %>
         </div>
         <div class="form-floating mt-4">
-            <%= form.text_field :location, class: "form-control", placeholder: "Link/locatie", value: "A1.22", required: true %>
+            <%= form.text_field :location, class: "form-control", placeholder: "Link/locatie", value: @course.location, required: true %>
             <%= form.label :location do 'Location (paste zoom link if not in a room)' end %>
         </div>
     </div>

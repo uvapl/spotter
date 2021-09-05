@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
     resources 'live', only: [ :index ]
     resources 'planner', only: [ :index, :show ]
-    resources 'courses', only: [] do
+    resources 'courses', only: [ :index, :new, :create, :edit, :update ] do
         resources 'appointments', only: [ :create ]
+        post 'bulk', to: 'courses#bulk'
     end
     resources 'appointments', only: [ :show ]
     resources 'users', only: [ :new, :create ]

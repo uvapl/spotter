@@ -1,6 +1,4 @@
 class Appointment < ApplicationRecord
-    SLOTS_PER_HOUR = 4
-
     belongs_to :user
     belongs_to :course
 
@@ -9,7 +7,7 @@ class Appointment < ApplicationRecord
 
     def starting_time
         # exactly the library function we need
-        DateTime.commercial(year, week, day, hour, (slot-1).to_f/SLOTS_PER_HOUR*60)
+        DateTime.commercial(year, week, day, hour, (slot-1).to_f/course.slots*60)
     end
 
     def self.booked_per_slot(year, week, day)
