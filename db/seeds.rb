@@ -1,7 +1,7 @@
 # Load this data into the database using `db:seed` or `db:setup`.
 
-c1 = Course.find_or_create_by(name: 'Minor Programmeren')
-c2 = Course.find_or_create_by(name: 'Programmeren IK')
+c1 = Course.find_or_create_by(name: 'Minor Programmeren', slots: 4, minimum: 60, location: "A1.22")
+c2 = Course.find_or_create_by(name: 'Programmeren IK', slots: 4, minimum: 60, location: "A1.22")
 
 this_week = Date.current.cweek
 this_year = Date.current.year
