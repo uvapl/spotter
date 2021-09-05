@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_28_132150) do
+ActiveRecord::Schema.define(version: 2021_09_05_144009) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(version: 2021_07_28_132150) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "course_id", default: 0, null: false
+    t.string "location"
+    t.string "uuid"
     t.index ["course_id"], name: "index_appointments_on_course_id"
     t.index ["user_id"], name: "index_appointments_on_user_id"
   end
@@ -33,6 +35,9 @@ ActiveRecord::Schema.define(version: 2021_07_28_132150) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "slots"
+    t.string "location"
+    t.integer "minimum"
   end
 
   create_table "schedules", force: :cascade do |t|

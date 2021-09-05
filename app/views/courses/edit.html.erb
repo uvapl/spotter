@@ -1,0 +1,84 @@
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <h3 class="text-center"><%= @course.name %></h3>
+    </div>
+</div>
+
+<div class="row justify-content-center pb-5">
+    <div class="col-lg-6">
+        <%= form_for [@course] do |form| %>
+            <div class="form-floating mt-4">
+                <%= form.text_field :name, class: "form-control", placeholder: "Naam", required: true, autofocus: true %>
+                <%= form.label :subject do 'Naam' end %>
+            </div>
+            <div class="form-floating mt-4">
+                <%= form.number_field :slots, class: "form-control", placeholder: "Slots per uur", required: true %>
+                <%= form.label :subject do 'Slots per uur' end %>
+                <small class="text-muted">Pas dit nooit aan als er al afspraken zijn gemaakt.</small>
+            </div>
+            <div class="form-floating mt-4">
+                <%= form.number_field :minimum, class: "form-control", placeholder: "Minimale aanloop (minuten)", required: true %>
+                <%= form.label :subject do 'Minimale aanloop (minuten)' end %>
+            </div>
+            <div class="form-floating mt-4">
+                <%= form.text_field :location, class: "form-control", placeholder: "Standaard locatie", required: true %>
+                <%= form.label :subject do 'Standaard locatie' end %>
+            </div>
+            <button class="w-100 btn btn-lg btn-primary mt-4" type="submit">Opslaan</button>
+        <% end %>
+    </div>
+</div>
+
+<div class="row justify-content-center pt-5">
+    <div class="col-lg-6">
+        <h3 class="text-center">Invoer slots</h3>
+    </div>
+</div>
+
+<%= form_with url: course_path(@course) + "/bulk", method: :post do |form| %>
+    <div class="row justify-content-center">
+        <div class="col-lg-3">
+            <div class="form-floating mt-4">
+                <%= form.number_field :start, class: "form-control", placeholder: "Eerste week", required: true %>
+                <%= form.label :start do 'Eerste week' end %>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="form-floating mt-4">
+                <%= form.number_field :end, class: "form-control", placeholder: "Laatste week", required: true %>
+                <%= form.label :end do 'Laatste week' end %>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center pt-5">
+        <div class="col-lg-12">
+            <table class="table">
+                <tr>
+                    <th></th>
+                    <th>Zondag</th>
+                    <th>Maandag</th>
+                    <th>Dinsdag</th>
+                    <th>Woensdag</th>
+                    <th>Donderdag</th>
+                    <th>Vrijdag</th>
+                    <th>Zaterdag</th>
+                </tr>
+                <% for i in 9..17 do %>
+                    <tr>
+                        <th><%= i %>:00</th>
+                        <% for j in 0..6 do %>
+                            <td><%= form.number_field j.to_s + "-" + i.to_s, class: "form-control", value: 0, required: true %></td>
+                        <% end %>
+                    </tr>
+                <% end %>
+            </table>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <button class="w-100 btn btn-lg btn-primary mt-4 mb-5" type="submit">Opslaan</button>
+        </div>
+    </div>
+<% end %>

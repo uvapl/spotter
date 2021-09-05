@@ -34,7 +34,11 @@
         <h5 class="text-center text-muted fw-light">Met welke opdracht wil je assistentie?</h5>
         <div class="form-floating mt-4">
             <%= form.text_field :subject, class: "form-control", placeholder: "Opdracht", value: "", required: true, autofocus: true %>
-            <%= form.label :subject, text: 'Opdracht' %>
+            <%= form.label :subject do 'Opdracht' end %>
+        </div>
+        <div class="form-floating mt-4">
+            <%= form.text_field :location, class: "form-control", placeholder: "Link/locatie", value: @course.location, required: true %>
+            <%= form.label :location do 'Location (paste zoom link if not in a room)' end %>
         </div>
     </div>
 </div>

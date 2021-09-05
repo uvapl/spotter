@@ -1,0 +1,36 @@
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <h3 class="text-center">Vakken</h3>
+    </div>
+</div>
+
+<div class="row justify-content-center pt-3">
+    <div class="col-lg-8">
+        <table class="table">
+            <tr>
+                <th>ID</th>
+                <th>Vak</th>
+                <th>Slots per uur</th>
+                <th>Minimale aanloop</th>
+                <th>Standaard locatie</th>
+                <th>Bewerken</th>
+            </tr>
+            <% @courses.each do |course| %>
+                <tr>
+                    <td><%= course.id %></td>
+                    <td><%= course.name %></td>
+                    <td><%= course.slots %></td>
+                    <td><%= course.minimum %></td>
+                    <td><%= course.location %></td>
+                    <td><%= link_to "Bewerken", edit_course_path(course) %></td>
+                </tr>
+            <% end %>
+        </table>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <%= link_to "Nieuw vak", new_course_path, class: "w-100 btn btn-lg btn-primary mt-4" %>
+    </div>
+</div>

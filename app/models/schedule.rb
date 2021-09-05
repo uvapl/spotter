@@ -15,7 +15,8 @@ class Slots
     end
 
     def today
-        get Date.current.wday
+        day, slots = get Date.current.wday
+        return day, slots.select{|hour,count| hour > Time.now.hour}
     end
 
     def tomorrow
