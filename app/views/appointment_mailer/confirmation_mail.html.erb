@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+    <h1>Afspraak</h1>
+    <p>
+        Je kunt terecht bij de balie op
+        <strong><%= @appointment.starting_time.to_formatted_s(:rfc822) %></strong>.
+    </p>
+    <p>
+        De locatie: <%= @appointment.location %>
+    </p>
+    <p>
+        <%= link_to 'Bekijk/wijzig je afspraak', appointment_url(@appointment) %>
+    </p>
+</body>
+</html>

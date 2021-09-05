@@ -1,7 +1,5 @@
 class AppointmentsController < ApplicationController
-    before_action do
-        render status: :forbidden if not signed_in?
-    end
+    before_action :require_user
 
     def complete
         head :no_content
@@ -27,10 +25,14 @@ class AppointmentsController < ApplicationController
                                  day: date.wday,
                                  week: date.cweek,
                                  year: date.year,
-                                 subject: filter_params[:subject]
+                                 subject: filter_params[:subject],
+                                 location: filter_params[:location],
+                                 uuid: Digest::UUID.uuid_v4
+
+        AppointmentMailer.with(appointment: a).confirmation_mail.deliver_later
     end
     
     def filter_params
-        params.require(:appointment).permit(:slot, :subject)
+        params.require(:appointment).permit(:slot, :subject, :location)
     end
 end

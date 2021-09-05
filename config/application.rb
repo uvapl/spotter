@@ -34,5 +34,8 @@ module Spotter
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+    
+    routes.default_url_options[:host] = "balie.mprog.nl"
+    routes.default_url_options[:protocol] = :https
   end
 end

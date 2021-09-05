@@ -1,0 +1,11 @@
+Afspraak
+--------
+
+Je kunt terecht bij de balie op
+
+    <%= @appointment.starting_time.to_formatted_s(:rfc822) %>
+
+De locatie: <%= @appointment.location %>
+
+Bekijk/wijzig je afspraak hier:
+<%= appointment_url(@appointment) %>

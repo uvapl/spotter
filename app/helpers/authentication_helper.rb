@@ -1,7 +1,7 @@
 module AuthenticationHelper
 
     def authenticated?
-        return request.session['cas'].present?
+        return request.session['cas'].present? && request.session['cas']['user'].present?
     end
 
     def signed_in?
@@ -10,6 +10,20 @@ module AuthenticationHelper
 
     def current_user
         @current_user ||= load_current_user
+    end
+
+    def require_admin
+        unless signed_in? && current_user.login.in?(admins)
+            head :forbidden
+        end
+    end
+
+    def require_user
+        head :forbidden unless signed_in?
+    end
+
+    def admins
+        ENV['SPOTTER_ADMINS'] && ENV['SPOTTER_ADMINS'].split(":") || []
     end
 
     private

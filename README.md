@@ -1,4 +1,14 @@
-# README
+# Spotter
+
+Allows you to get a spot!
+
+## Admins
+
+Set the `SPOTTER_ADMINS` environment variable to specify admin logins.
+
+    SPOTTER_ADMINS=user1:user2 rails server
+
+## Other
 
 This README would normally document whatever steps are necessary to get the
 application up and running.

@@ -4,10 +4,10 @@ Rails.application.routes.draw do
     resources 'courses', only: [] do
         resources 'appointments', only: [ :create ]
     end
+    resources 'appointments', only: [ :show ]
     resources 'users', only: [ :new, :create ]
-    get 'logout', to: 'users#logout'
+    post 'logout', to: 'users#logout'
     post '/appointments/:appointment_id/complete', to: 'appointments#complete'
     root to: "home#index"
-
     # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

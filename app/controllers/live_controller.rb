@@ -1,7 +1,5 @@
 class LiveController < ApplicationController
-    before_action do
-        redirect_to :root if not signed_in?
-    end
+    before_action :require_admin
 
     def index
         date = Date.today
