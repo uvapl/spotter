@@ -4,13 +4,13 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
 </head>
 <body>
-    <h1>Appointment</h1>
+    <h2>📅 Appointment</h2>
     <p>
-        Your appointment is at
-        <strong><%= @appointment.starting_time.to_formatted_s(:rfc822) %></strong>.
+        Your appointment is on
+        <strong><%= @appointment.formatted_starting_time %></strong>.
     </p>
     <p>
-        Location: <%= @appointment.location %>
+        Location: <strong><%= @appointment.location %></strong>
     </p>
     <p>
         <%= link_to 'Change or cancel your appointment', appointment_url(@appointment) %>

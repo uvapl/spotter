@@ -1,9 +1,9 @@
 Appointment
 -----------
 
-Your appointment is at:
+Your appointment is on:
 
-    <%= @appointment.starting_time.to_formatted_s(:rfc822) %>
+    <%= @appointment.formatted_starting_time %>
 
 Location: <%= @appointment.location %>
 

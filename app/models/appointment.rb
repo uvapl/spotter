@@ -10,6 +10,10 @@ class Appointment < ApplicationRecord
         DateTime.commercial(year, week, day, hour, (slot-1).to_f/course.slots*60)
     end
 
+    def formatted_starting_time
+        starting_time.strftime '%A %-d %B %Y, %-H:%M'
+    end
+
     def self.booked_per_slot(year, week, day)
         where(year: year, week: week, day: day).group(:hour, :slot).count
     end
