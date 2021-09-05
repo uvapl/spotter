@@ -119,7 +119,7 @@ module PlannerHelper
         end
 
         if dt.to_date == Date.tomorrow
-            return "Morgen"
+            return "Tomorrow"
         end
 
         return DAYS[dt.to_date.wday]

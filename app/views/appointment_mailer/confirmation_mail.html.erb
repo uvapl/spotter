@@ -4,16 +4,16 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
 </head>
 <body>
-    <h1>Afspraak</h1>
+    <h1>Appointment</h1>
     <p>
-        Je kunt terecht bij de balie op
+        Your appointment is at
         <strong><%= @appointment.starting_time.to_formatted_s(:rfc822) %></strong>.
     </p>
     <p>
-        De locatie: <%= @appointment.location %>
+        Location: <%= @appointment.location %>
     </p>
     <p>
-        <%= link_to 'Bekijk/wijzig je afspraak', appointment_url(@appointment) %>
+        <%= link_to 'Change or cancel your appointment', appointment_url(@appointment) %>
     </p>
 </body>
 </html>

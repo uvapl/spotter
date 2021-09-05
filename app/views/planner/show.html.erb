@@ -1,9 +1,13 @@
+<% if @suggestions.count == 0%>
+    <p class="text-center pt-3 text-muted">No slots are currently available 🤨</p>
+<% else %>
+
 <%= form_for [@course, @appointment] do |form| %>
 
 <div class="row justify-content-center">
     <div class="col-lg-6">
-        <h3 class="text-center">Wanneer?</h3>
-        <h5 class="text-center text-muted fw-light">Op welk moment wil je assistentie?</h5>
+        <h3 class="text-center">Plan your appointment</h3>
+        <h5 class="text-center text-muted fw-light">When would you like to meet?</h5>
     </div>
 </div>
 
@@ -23,30 +27,28 @@
         </div>
     <% end %>
 
-    <% if @suggestions.count == 0%>
-        <p class="text-center pt-3 text-muted">Er zijn geen slots meer beschikbaar! 🤨</p>
-    <% end %>
 </div>
 
 <div class="row mb-3 mb-md-5 justify-content-center" style="margin-top: 2.5rem;">
     <div class="col-lg-6">
-        <h3 class="text-center">Waarmee?</h3>
-        <h5 class="text-center text-muted fw-light">Met welke opdracht wil je assistentie?</h5>
+        <h5 class="text-center text-muted fw-light">What would you like to talk about?</h5>
         <div class="form-floating mt-4">
-            <%= form.text_field :subject, class: "form-control", placeholder: "Opdracht", value: "", required: true, autofocus: true %>
-            <%= form.label :subject do 'Opdracht' end %>
+            <%= form.text_field :subject, class: "form-control", placeholder: "Assignment", value: "", required: true, autofocus: true %>
+            <%= form.label :subject do 'Assignment' end %>
         </div>
         <div class="form-floating mt-4">
             <%= form.text_field :location, class: "form-control", placeholder: "Link/locatie", value: @course.location, required: true %>
-            <%= form.label :location do 'Location (paste zoom link if not in a room)' end %>
+            <%= form.label :location do 'Location (room number or zoom link)' end %>
         </div>
     </div>
 </div>
 
 <div class="row mb-3 mb-md-5 justify-content-center">
-    <div class="col-lg-6">
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Maak afspraak</button>
+    <div class="col-lg-4">
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Reserve my spot</button>
     </div>
 </div>
+
+<% end %>
 
 <% end %>
