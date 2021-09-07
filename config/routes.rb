@@ -6,7 +6,7 @@ Rails.application.routes.draw do
         post 'bulk', to: 'courses#bulk'
     end
     # resources 'appointments', only: [ :show ]
-    get  '/appointments/:appointment_uuid', to: 'appointments#show'
+    get  '/appointments/:appointment_uuid', to: 'appointments#show', as: 'appointment'
     resources 'users', only: [ :new, :create ]
     post 'logout', to: 'users#logout'
     post '/appointments/:appointment_id/complete', to: 'appointments#complete'
