@@ -9,6 +9,10 @@ class AppointmentsController < ApplicationController
         appointment.save!
     end
 
+    def show
+        @appointment = Appointment.find_by_uuid params[:appointment_uuid]
+    end
+
     def create
         course = Course.find params[:course_id]
         date = Time.at(filter_params[:slot].to_i).to_datetime
