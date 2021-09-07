@@ -115,7 +115,7 @@ module PlannerHelper
     def daytext(dt)
         # return a human-friendly day name
         if dt.today?
-            return "Vandaag"
+            return "Today"
         end
 
         if dt.to_date == Date.tomorrow
