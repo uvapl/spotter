@@ -1,16 +1,21 @@
 class AppointmentsController < ApplicationController
     before_action :require_user
 
-    def complete
-        head :no_content
-
-        appointment = Appointment.find params[:appointment_id]
-        appointment.status = 2
-        appointment.save!
+    def show
+        @appointment = Appointment.find_by_uuid params[:uuid]
     end
 
-    def show
-        @appointment = Appointment.find_by_uuid params[:appointment_uuid]
+    def complete
+        appointment = Appointment.find_by_uuid params[:appointment_uuid]
+        appointment.status = 2
+        appointment.save!
+        redirect_back fallback_location: '/'
+    end
+
+    def claim
+        appointment = Appointment.find_by_uuid params[:appointment_uuid]
+        appointment.update! helper: current_user
+        redirect_back fallback_location: '/'
     end
 
     def create

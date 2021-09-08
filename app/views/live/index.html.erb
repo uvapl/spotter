@@ -1,40 +1,21 @@
 <div class="row live-row">
-    <% prev = 0 %>
     <% if @appointments.count == 0 %>
         <div class="col-12 pb-5">
             <h3 class="text-center">Geen afspraken meer! 😄</h3>
             <h5 class="text-center text-muted fw-light">Alles opgelost...</h5>
         </div>
     <% end %>
-
-    <% @appointments.each do | appointment | %>
-
-        <% if appointment.starting_time != prev %>
-            <% if prev != 0 %>
-                <hr>
-                </div>
-                <div class="row live-row">
-            <% end %>
-
-            <div class="col col-12">
-                <h2 class="text-primary"><%= appointment.starting_time.strftime('%H:%M') %></h2>
-            </div>
-
-            <% prev = appointment.starting_time %>
-        <% end %>
-
-        <div class="col-lg-3 col-md-6 mt-3 mb-5 live-col" data-appointment="<%= appointment.id %>">
-            <div class="card d-flex flex-row bg-light">
-                <div class="card-body align-items-baseline">
-                    <h4 class="card-title mt-0 mt-sm-1 mb-0"><%= appointment.user.name %></h5>
-                    <small class="text-uppercase text-muted"><%= appointment.course.name %></small>
-                    <p class="mt-0 mt-md-2">"<%= appointment.subject %>"</p>
-                </div>
-                <span class="material-icons card-x">close</span>
-            </div>
-        </div>
-    <% end %>
-    <hr>
 </div>
+
+<% @appointments.each do |time, appointments| %>
+<div class="row live-row">
+    <div class="col col-12">
+        <h2 class="text-primary"><%= time.strftime('%H:%M') %></h2>
+    </div>
+
+    <%= render appointments %>
+</div>
+<hr>
+<% end %>
 
 <%= javascript_include_tag 'live' %>

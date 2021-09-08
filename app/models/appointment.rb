@@ -1,6 +1,8 @@
 class Appointment < ApplicationRecord
     belongs_to :user
     belongs_to :course
+    belongs_to :helper, class_name: 'User', optional: true
+    delegate :name, to: :helper, prefix: true
 
     # see https://api.rubyonrails.org/classes/ActiveRecord/Enum.html
     enum status: { active: 0, cancelled: 1, done: 2 }

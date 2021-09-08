@@ -7,6 +7,8 @@ class LiveController < ApplicationController
             day: date.wday,
             week: date.cweek,
             year: date.year
-        ).order(:hour, :slot)
+        ).
+        order(:hour, :slot).
+        group_by &:starting_time
     end
 end

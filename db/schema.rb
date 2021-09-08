@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_05_174834) do
+ActiveRecord::Schema.define(version: 2021_09_08_171418) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -27,7 +27,9 @@ ActiveRecord::Schema.define(version: 2021_09_05_174834) do
     t.integer "course_id", default: 0, null: false
     t.string "location"
     t.string "uuid"
+    t.integer "helper_id"
     t.index ["course_id"], name: "index_appointments_on_course_id"
+    t.index ["helper_id"], name: "index_appointments_on_helper_id"
     t.index ["user_id"], name: "index_appointments_on_user_id"
   end
 
@@ -63,5 +65,6 @@ ActiveRecord::Schema.define(version: 2021_09_05_174834) do
 
   add_foreign_key "appointments", "courses"
   add_foreign_key "appointments", "users"
+  add_foreign_key "appointments", "users", column: "helper_id"
   add_foreign_key "schedules", "courses"
 end

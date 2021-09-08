@@ -3,19 +3,19 @@ module PlannerHelper
     MONTHS = ["n/a", "januari", "februari", "maart", "april", "mei", "juni",
               "juli", "augustus", "september", "oktober", "november", "december"]
 
-    def get_available_slots(course, year, week, day, slots, amount)
+    def get_available_slots(course, year, week, day, slots, amount_of_required_slots)
         all_selected = []
         result = []
         options = all_available_slots(course, year, week, day, slots)
         srand(current_user.id || 9393927)
 
         # skip if there are no options
-        if options.count < 1 || amount <= 0
+        if options.count < 1 || amount_of_required_slots <= 0
             return []
         end
 
         # if we need 2 suggestions or less, always get random options (must be at least 1,5 hour apart)
-        if amount <= 2
+        if amount_of_required_slots <= 2
             # get a random option
             # selected = options.sample
             # all_selected.push(selected)
@@ -27,7 +27,7 @@ module PlannerHelper
 
             # loop until we have all required options
             counter = 0
-            until result.count == amount || counter == 100
+            until result.count == amount_of_required_slots || counter == 100
                 counter += 1
 
                 # get another random option
@@ -51,15 +51,17 @@ module PlannerHelper
 
             # run through until we have all the required options
             counter = 0
-            until result.count == amount || counter == 100
+            until result.count == amount_of_required_slots || counter == 100
                 counter += 1
 
                 # get a random option
-                if selected = select_candidates(amount, all_selected.count, options).sample
-                    # check that it is not already selected
-                    if !all_selected.include? selected
-                        all_selected.push(selected)
-                        result.push(hour_slot_to_result(course, year, week, day, selected))
+                if all_cand = select_candidates(amount_of_required_slots, all_selected.count, options)
+                    if selected = all_cand.sample
+                        # check that it is not already selected
+                        if !all_selected.include? selected
+                            all_selected.push(selected)
+                            result.push(hour_slot_to_result(course, year, week, day, selected))
+                        end
                     end
                 end
             end
