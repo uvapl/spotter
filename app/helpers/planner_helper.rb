@@ -55,12 +55,12 @@ module PlannerHelper
                 counter += 1
 
                 # get a random option
-                selected = select_candidates(amount, all_selected.count, options).sample
-
-                # check that it is not already selected
-                if !all_selected.include? selected
-                    all_selected.push(selected)
-                    result.push(hour_slot_to_result(course, year, week, day, selected))
+                if selected = select_candidates(amount, all_selected.count, options).sample
+                    # check that it is not already selected
+                    if !all_selected.include? selected
+                        all_selected.push(selected)
+                        result.push(hour_slot_to_result(course, year, week, day, selected))
+                    end
                 end
             end
         end
