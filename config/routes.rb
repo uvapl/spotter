@@ -1,6 +1,16 @@
+# For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
 Rails.application.routes.draw do
+    resources 'users', only: [ :new, :create ]
+    resources 'planner', only: [ :show ]
+
+    get  '/appointments/:appointment_uuid', to: 'appointments#show', as: 'appointment'
+    post '/appointments/:appointment_id/complete', to: 'appointments#complete'
+
+    # appointments overview
     resources 'live', only: [ :index ]
-    resources 'planner', only: [ :index, :show ]
+
+    # change hours etc
     resources 'courses', only: [ :index, :new, :create, :edit, :update ] do
         resources 'appointments', only: [ :create ]
         post 'bulk', to: 'courses#bulk'
@@ -10,10 +20,13 @@ Rails.application.routes.draw do
             end
         end
     end
-    get  '/appointments/:appointment_uuid', to: 'appointments#show', as: 'appointment'
-    resources 'users', only: [ :new, :create ]
+
     post 'logout', to: 'users#logout'
-    post '/appointments/:appointment_id/complete', to: 'appointments#complete'
+
+    namespace 'home' do
+        get 'index'
+        get 'register'
+    end
+
     root to: "home#index"
-    # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

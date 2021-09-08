@@ -8,17 +8,15 @@
     <div class="col-lg-8">
         <table class="table">
             <tr>
-                <th>ID</th>
                 <th>Vak</th>
                 <th>Slots per uur</th>
-                <th>Minimale aanloop</th>
-                <th>Standaard locatie</th>
-                <th>Bewerken</th>
+                <th>Aanlooptijd</th>
+                <th>Locatie</th>
+                <th></th>
             </tr>
             <% @courses.each do |course| %>
                 <tr>
-                    <td><%= course.id %></td>
-                    <td><%= course.name %></td>
+                    <td><%= link_to course.name, planner_path(course) %></td>
                     <td><%= course.slots %></td>
                     <td><%= course.minimum %></td>
                     <td><%= course.location %></td>

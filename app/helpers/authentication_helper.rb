@@ -12,8 +12,12 @@ module AuthenticationHelper
         @current_user ||= load_current_user
     end
 
+    def current_user_admin?
+        current_user.login.in?(admins)
+    end
+
     def require_admin
-        unless signed_in? && current_user.login.in?(admins)
+        unless signed_in? && current_user_admin?
             head :forbidden
         end
     end

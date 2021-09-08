@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
     def create
         current_user.update(params.require(:user).permit(:name, :email))
-        redirect_to :root
+
+        # goto "previous" url or else to root
+        redirect_to params[:goto] || :root
     end
 
     def logout

@@ -1,5 +1,12 @@
 class HomeController < ApplicationController
+    # redirect to register or provide a bumper page
     def index
-        redirect_to planner_index_path and return if signed_in?
+        unless signed_in?
+            redirect_to(home_register_path(goto: params[:goto])) and return
+        end
+    end
+
+    # provide user registration form
+    def register
     end
 end

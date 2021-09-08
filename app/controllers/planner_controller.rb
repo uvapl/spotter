@@ -1,10 +1,7 @@
 class PlannerController < ApplicationController
     before_action do
-        redirect_to :root if not signed_in?
-    end
-
-    def index
-        @courses = Course.all
+        # include the current planner url to come back after user registration
+        redirect_to(root_path(goto: request.original_url)) if not signed_in?
     end
 
     def show
