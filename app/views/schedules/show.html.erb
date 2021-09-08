@@ -1,0 +1,39 @@
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <h3 class="text-center"><%= @course.name %></h3>
+        <h5 class="text-center"><%= @year_number %>, week<%= 's' if @multiple_weeks %> <%= @week_number %>
+    </div>
+</div>
+
+<%= form_with url: course_year_week_schedule_path(course: @course, week_number: @week_number, year_number: @year_number), method: :put do |form| %>
+    <div class="row justify-content-center pt-5">
+        <div class="col-lg-12">
+            <table class="table">
+                <tr>
+                    <th></th>
+                    <th>Zondag</th>
+                    <th>Maandag</th>
+                    <th>Dinsdag</th>
+                    <th>Woensdag</th>
+                    <th>Donderdag</th>
+                    <th>Vrijdag</th>
+                    <th>Zaterdag</th>
+                </tr>
+                <% for i in 9..17 do %>
+                    <tr>
+                        <th><%= i %>:00</th>
+                        <% for j in 0..6 do %>
+                            <td><%= form.number_field j.to_s + "-" + i.to_s, class: "form-control", value: @slots.get(j)[1][i] %></td>
+                        <% end %>
+                    </tr>
+                <% end %>
+            </table>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <button class="w-100 btn btn-lg btn-primary mt-4 mb-5" type="submit">Wijzigingen opslaan</button>
+        </div>
+    </div>
+<% end %>

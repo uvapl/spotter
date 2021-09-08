@@ -3,6 +3,13 @@ class Schedule < ApplicationRecord
 
     serialize :slots, default: {}
 
+    def self.for_coming_weeks
+        where(year: Date.current.year).
+        where('week >= ?', Date.current.cweek).
+        order(:year, :week).
+        limit(10)
+    end
+
     def slots
         # encapsulate data in a specialized object
         Slots.new super

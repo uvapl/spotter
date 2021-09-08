@@ -32,6 +32,11 @@
 <div class="row justify-content-center pt-5">
     <div class="col-lg-6">
         <h3 class="text-center">Invoer slots</h3>
+        <p class="text-center">
+            <% @coming_weeks.each do |schedule| %>
+            <%= link_to schedule.week.to_s, course_year_week_schedule_path(course_id: @course.id, year_number: schedule.year, week_number: schedule.week) %>
+            <% end %>
+        </p>
     </div>
 </div>
 
