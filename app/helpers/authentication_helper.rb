@@ -1,5 +1,4 @@
 module AuthenticationHelper
-
     def authenticated?
         return request.session['cas'].present? && request.session['cas']['user'].present?
     end
@@ -12,8 +11,8 @@ module AuthenticationHelper
         @current_user ||= load_current_user
     end
 
-    def current_user_admin?
-        current_user.login.in?(admins)
+    def require_user
+        head :forbidden unless signed_in?
     end
 
     def require_admin
@@ -22,12 +21,26 @@ module AuthenticationHelper
         end
     end
 
-    def require_user
-        head :forbidden unless signed_in?
+    def require_assistant
+        unless signed_in? && (current_user_assistant? || current_user_admin?)
+            head :forbidden
+        end
+    end
+
+    def current_user_admin?
+        current_user.login.in?(admins)
     end
 
     def admins
         ENV['SPOTTER_ADMINS'] && ENV['SPOTTER_ADMINS'].split(":") || []
+    end
+
+    def current_user_assistant?
+        current_user.login.in?(assistants)
+    end
+
+    def assistants
+        ENV['SPOTTER_TAS'] && ENV['SPOTTER_TAS'].split(":") || []
     end
 
     private
@@ -40,5 +53,4 @@ module AuthenticationHelper
             raise "Tried to load current_user before allowing CAS to intervene."
         end
     end
-
 end
