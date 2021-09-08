@@ -12,14 +12,14 @@ var complete = function() {
     xhttp.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content)
     xhttp.send();
 
-    // remove the appointment from the screen
-    if (row.children.length < 4) {
-        row.addEventListener('transitionend', () => row.remove());
-        row.style.opacity = '0'
-    } else {
-        col.addEventListener('transitionend', () => col.remove());
-        col.style.opacity = '0'
-    }
+    // // remove the appointment from the screen
+    // if (row.children.length < 4) {
+    //     row.addEventListener('transitionend', () => row.remove());
+    //     row.style.opacity = '0'
+    // } else {
+    //     col.addEventListener('transitionend', () => col.remove());
+    //     col.style.opacity = '0'
+    // }
 };
 
 window.onload = function() {
