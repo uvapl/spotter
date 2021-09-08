@@ -1,9 +1,9 @@
 <div class="col-lg-3 col-md-6 mt-3 mb-5 live-col" data-appointment="<%= appointment.id %>">
-    <div class="card d-flex flex-row <%= appointment.done? ? 'bg-light' : 'bg-white' %>">
-        <div class="card-body align-items-baseline">
+    <div class="card <%= appointment.done? ? 'bg-light' : 'bg-white' %>">
+        <div class="card-body">
             <h4 class="card-title mt-0 mt-sm-1 mb-0"><%= appointment.user.name %></h5>
             <small class="text-uppercase text-muted"><%= appointment.course.name %></small>
-            <p class="mt-0">@ <%= link_to_if appointment.location =~ URI.regexp, appointment.location, appointment.location %></p>
+            <p class="mt-0 text-truncate">@ <%= link_to_if appointment.location =~ URI.regexp, appointment.location, appointment.location %></p>
             <p class="mt-0 mt-md-2">"<%= appointment.subject %>"</p>
             <p class="text-end mb-0">
                 <% if appointment.helper.present? %>
