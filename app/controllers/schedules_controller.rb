@@ -26,7 +26,7 @@ class SchedulesController < ApplicationController
         schedule.slots = slots
         schedule.save!
 
-        redirect_to edit_course_path(@course), alert: "Saved!"
+        redirect_to edit_course_path(@course), notice: "Saved!"
     end
 
     def course_params

@@ -13,9 +13,12 @@ class AppointmentsController < ApplicationController
     end
 
     def claim
-        appointment = Appointment.find_by_uuid params[:appointment_uuid]
-        appointment.update! helper: current_user
-        redirect_back fallback_location: '/'
+        appointment = Appointment.find_by uuid:params[:appointment_uuid], helper:nil
+        if appointment.present? && appointment.update(helper: current_user)
+            redirect_back fallback_location: '/', notice: "Yes, go ahead!"
+        else
+            redirect_back fallback_location: '/', alert: "Someone already claimed this!"
+        end
     end
 
     def create

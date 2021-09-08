@@ -1,20 +1,23 @@
 <div class="col-lg-3 col-md-6 mt-3 mb-5 live-col" data-appointment="<%= appointment.id %>">
-    <div class="card <%= appointment.done? ? 'bg-light' : 'bg-white' %>">
+    <div class="card <%= appointment.done? ? 'bg-light' : 'bg-white' %>"
+        <% if appointment.done? %>
+        style='background: linear-gradient(to bottom right, white 50%, orange 50.3%, white 50.4%);'
+        <% end %>>
         <div class="card-body">
-            <h4 class="card-title mt-0 mt-sm-1 mb-0"><%= appointment.user.name %></h5>
+            <h4 class="card-title mt-0 mt-sm-1 mb-0"><%= appointment.user.name %></h4>
             <small class="text-uppercase text-muted"><%= appointment.course.name %></small>
             <p class="mt-0 text-truncate">@ <%= link_to_if appointment.location =~ URI.regexp, appointment.location, appointment.location %></p>
             <p class="mt-0 mt-md-2">"<%= appointment.subject %>"</p>
-            <p class="text-end mb-0">
+        </div>
+        <div class="card-footer d-flex flex-row justify-content-end align-items-center">
                 <% if appointment.helper.present? %>
                 <%= appointment.helper_name %>
                 <% unless appointment.done? %>
-                <%= button_to '✔️', appointment_complete_path(appointment), method: :put, class: 'float-end' %>
+                <%= button_to '✔️ Done', appointment_complete_path(appointment), method: :put, class: 'ms-3 btn btn-primary btn-sm float-end', form_class: 'd-inline-block' %>
                 <% end %>
                 <% else %>
-                <%= button_to 'me', appointment_claim_path(appointment), method: :put, class: 'float-end' %>
+                <%= button_to 'Me', appointment_claim_path(appointment), method: :put, class: 'ms-3 btn btn-primary btn-sm float-end', form_class: 'd-inline-block' %>
                 <% end %>
-            </p>
         </div>
         <!--span class="material-icons card-x">close</span-->
     </div>
