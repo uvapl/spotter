@@ -17,9 +17,13 @@ module PlannerHelper
         # if we need 2 suggestions or less, always get random options (must be at least 1,5 hour apart)
         if amount <= 2
             # get a random option
-            selected = options.sample
-            all_selected.push(selected)
-            result.push(hour_slot_to_result(course, year, week, day, selected))
+            # selected = options.sample
+            # all_selected.push(selected)
+            # result.push(hour_slot_to_result(course, year, week, day, selected))
+
+            # get the first option because I think this part is always used for "tomorrow"
+            result.push(hour_slot_to_result(course, year, week, day, options.first))
+            all_selected.push(options.first)
 
             # loop until we have all required options
             counter = 0
