@@ -79,8 +79,10 @@ module PlannerHelper
             # run through the available slots within the hour
             for i in 1..course.slots do
                 # add if no bookings for the slot or less than available
-                if create_date(course, year, week, day, hour, i) > DateTime.now
-                     !bookings[[hour,i]] || bookings[[hour,i]] < slots[hour]
+                past_now = create_date(course, year, week, day, hour, i) > DateTime.now
+                slot_available = !bookings[[hour,i]] || bookings[[hour,i]] < slots[hour]
+                
+                if past_now && slot_available
                     options.push([hour, i])
                 end
             end
