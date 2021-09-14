@@ -23,7 +23,7 @@ class Slots
 
     def today
         day, slots = get Date.current.wday
-        return day, slots.select{|hour,count| hour >= Time.now.hour}
+        return slots.select{|hour,count| hour >= Time.now.hour}
     end
 
     def tomorrow

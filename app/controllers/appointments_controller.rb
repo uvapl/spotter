@@ -30,18 +30,34 @@ class AppointmentsController < ApplicationController
             raise ActionController::RoutingError.new('Invalid Time')
         end
 
-        a = Appointment.create!  user: current_user,
-                                 course: course,
-                                 slot: date.min / (60/4) + 1,
-                                 hour: date.hour,
-                                 day: date.wday,
-                                 week: date.cweek,
-                                 year: date.year,
-                                 subject: filter_params[:subject],
-                                 location: filter_params[:location],
-                                 uuid: Digest::UUID.uuid_v4
+        slot = date.min / (60/4) + 1
+        hour = date.hour
+        day = date.wday
+        week = date.cweek
+        year = date.year
 
-        AppointmentMailer.with(appointment: a).confirmation_mail.deliver_later
+        # check if this choice is available, or find next slot
+        best_match_hour, best_match_slot =
+            course.first_available_slot_starting_from year, week, day, hour, slot
+
+        # anything's still available for chosen day?
+        if best_match_hour
+            @a = Appointment.create! user: current_user,
+                                     course: course,
+                                     slot: best_match_slot,
+                                     hour: best_match_hour,
+                                     day: day,
+                                     week: week,
+                                     year: year,
+                                     subject: filter_params[:subject],
+                                     location: filter_params[:location],
+                                     uuid: Digest::UUID.uuid_v4
+
+            AppointmentMailer.with(appointment: @a).confirmation_mail.deliver_later
+        else
+            redirect_to planner_path(course),
+                alert: "Unfortunately, timeslots are full for the day. Please select a new time below."
+        end
     end
     
     def filter_params
