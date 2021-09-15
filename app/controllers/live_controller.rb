@@ -8,6 +8,7 @@ class LiveController < ApplicationController
             week: date.cweek,
             year: date.year
         ).
+        where("hour >= ?", DateTime.now.hour-1).
         order(:hour, :slot).
         group_by &:starting_time
     end
