@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_08_171418) do
+ActiveRecord::Schema.define(version: 2021_09_21_142639) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 2021_09_08_171418) do
     t.string "login"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "feed_token"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["login"], name: "index_users_on_login", unique: true
   end

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
                 resource 'schedule', only: [ :show, :edit, :update ]
             end
         end
+        resources 'feeds', only: [ :show ], param: 'token'
     end
 
     post 'logout', to: 'users#logout'

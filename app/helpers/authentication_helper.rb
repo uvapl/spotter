@@ -1,4 +1,9 @@
 module AuthenticationHelper
+    def require_authentication
+        # redirects to CAS
+        head :unauthorized unless authenticated?
+    end
+
     def authenticated?
         return request.session['cas'].present? && request.session['cas']['user'].present?
     end

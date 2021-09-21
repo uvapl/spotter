@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+    has_secure_token :feed_token
+
     has_many :appointments
 
     validates :name, format: { with: /\A[[:alpha:]]{2,} [[:alpha:]\s]{2,}\z/i, on: :create }
