@@ -40,8 +40,8 @@ class Course < ApplicationRecord
     end
 
     def create_date(course, year, week, day, hour, slot)
-        DateTime.commercial(
-                    year, week, day, hour, (slot-1).to_f/course.slots*60, 0, '+2')
+        CommercialTime.create(
+                    year, week, day, hour, (slot-1).to_f/course.slots*60)
     end
 
 end

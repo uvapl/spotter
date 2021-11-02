@@ -9,7 +9,7 @@ class Appointment < ApplicationRecord
 
     def starting_time
         # exactly the library function we need
-        DateTime.commercial(year, week, day, hour, (slot-1).to_f/course.slots*60)
+        CommercialTime.create(year, week, day, hour, (slot-1).to_f/course.slots*60)
     end
 
     def formatted_starting_time(format=:datetime)

@@ -92,8 +92,8 @@ module PlannerHelper
     end
 
     def create_date(course, year, week, day, hour, slot)
-        DateTime.commercial(
-                    year, week, day, hour, (slot-1).to_f/course.slots*60, 0, '+2')
+        CommercialTime.create(
+                    year, week, day, hour, (slot-1).to_f/course.slots*60)
     end
 
     def select_candidates(amount, count, options)
@@ -113,8 +113,8 @@ module PlannerHelper
 
     def hour_slot_to_result(course, year, week, day, slot)
         # convert to the format required for rendering the page
-        dt = DateTime.commercial(
-            year, week, day, slot[0], (slot[1]-1).to_f/course.slots*60, 0, '+2')
+        dt = CommercialTime.create(
+            year, week, day, slot[0], (slot[1]-1).to_f/course.slots*60)
         return {"daytext" => daytext(dt),
                 "date" => dt.to_date.mday.to_s + " " + MONTHS[dt.to_date.mon],
                 "time" => dt.strftime("%H:%M"),
