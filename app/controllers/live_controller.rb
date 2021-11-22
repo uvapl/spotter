@@ -9,7 +9,7 @@ class LiveController < ApplicationController
             year: date.year
         ).
         where("hour >= ?", DateTime.now.hour-1).
-        order(:hour, :slot).
-        group_by &:starting_time
+        group_by(&:starting_time).
+        sort {|a,b| a[0] <=> b[0]}
     end
 end
