@@ -1,15 +1,30 @@
 <div class="row justify-content-center">
     <div class="col-lg-6">
         <h2>📅 Appointment</h2>
-        <p>
-            Your appointment is on
-            <strong><%= @appointment.formatted_starting_time %></strong>.
+
+        <% unless @appointment.cancelled? %>
+        <p class="mt-4">
+            Your appointment
+            <% if @appointment.active? %>
+            will take
+            <% else %>
+            took
+            <% end %>
+            place on <strong><%= @appointment.formatted_starting_time %></strong>.
         </p>
         <p>
             Location: <strong><%= @appointment.location %></strong>
         </p>
-        <p>
-            Currently, you can't change your appointment via this website.
+        <% else %>
+        <p class="mt-4">
+            Your appointment was <strong>cancelled</strong>. It was formerly planned at <%= @appointment.formatted_starting_time %>.
         </p>
+        <% end %>
+
+        <% if @appointment.active? %>
+        <p>
+            <%= button_to '🗑 Cancel Now', appointment_cancel_path(@appointment), method: :put, onclick: 'return confirm("Really cancel?");', class: 'btn btn-primary', form_class: 'd-inline-block' %>
+        </p>
+        <% end %>
     </div>
 </div>

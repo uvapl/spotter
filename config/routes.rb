@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources 'appointments', param: 'uuid', only: [ :show ] do
         put 'complete'
         put 'claim'
+        put 'cancel'
     end
 
     # change hours etc

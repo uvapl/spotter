@@ -1,8 +1,5 @@
 <div class="col-lg-3 col-md-6 mt-0 mb-4 live-col" data-appointment="<%= appointment.id %>">
-    <div class="card <%= appointment.done? ? 'bg-light' : 'bg-white' %>"
-        <% if appointment.done? %>
-        style='background: linear-gradient(to bottom right, white 50%, orange 50.3%, white 50.4%);'
-        <% end %>>
+    <div class="card <%= appointment.status %>">
         <div class="card-body">
             <small class="text-uppercase text-muted"><%= appointment.course.name %></small>
             <h6 class="card-title mt-0 mt-sm-1 mb-0"><%= appointment.user.name %></h6>
@@ -10,15 +7,17 @@
             <p class="mt-0 mt-md-2 mb-0">"<%= appointment.subject %>"</p>
         </div>
         <div class="card-footer d-flex flex-row justify-content-end align-items-center">
-                <% if appointment.helper.present? %>
-                <%= appointment.helper_name %>
-                <% unless appointment.done? %>
-                <%= button_to '✔️ Done', appointment_complete_path(appointment), method: :put, class: 'ms-3 btn btn-primary btn-sm float-end', form_class: 'd-inline-block' %>
+                <% if appointment.cancelled? %>
+                    <span class="text-muted">Cancelled</span>
                 <% end %>
-                <% else %>
-                <%= button_to 'Me', appointment_claim_path(appointment), method: :put, class: 'ms-3 btn btn-primary btn-sm float-end', form_class: 'd-inline-block' %>
+                <% if appointment.helper.present? %>
+                    <%= appointment.helper_name %>
+                    <% unless appointment.done? %>
+                    <%= button_to '✔️ Done', appointment_complete_path(appointment), method: :put, class: 'ms-3 btn btn-primary btn-sm float-end', form_class: 'd-inline-block' %>
+                    <% end %>
+                <% elsif appointment.active? %>
+                    <%= button_to 'Me', appointment_claim_path(appointment), method: :put, class: 'ms-3 btn btn-primary btn-sm float-end', form_class: 'd-inline-block' %>
                 <% end %>
         </div>
-        <!--span class="material-icons card-x">close</span-->
     </div>
 </div>

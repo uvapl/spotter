@@ -48,9 +48,13 @@ slots = {
 
 Schedule.delete_all
 
+puts "Creating slots for #{c1.name} in week #{this_week}"
+
 Schedule.find_or_create_by(course: c1, week: this_week, year: this_year) do |schedule|
     schedule.slots = slots
 end
+
+puts "Creating slots for #{c2.name} in week #{next_week}"
 
 Schedule.find_or_create_by(course: c1, week: next_week, year: next_year) do |schedule|
     schedule.slots = slots
@@ -58,10 +62,14 @@ end
 
 Appointment.delete_all
 
+puts "Creating an appointment for #{c1.name} on Tuesday at 9 in week #{this_week}"
+
 Appointment.find_or_create_by!(course: c1, slot: 1, hour: 9, day: 2, week: this_week, year: this_year) do |app|
     app.user = User.first
     app.subject = "Scratch"
 end
+
+puts "Creating an appointment for #{c1.name} on Tuesday at 10 in week #{this_week}"
 
 Appointment.find_or_create_by!(course: c1, slot: 2, hour: 10, day: 2, week: next_week, year: next_year) do |app|
     app.user = User.first

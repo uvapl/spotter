@@ -22,7 +22,7 @@ class Appointment < ApplicationRecord
     end
 
     def self.booked_per_slot(year, week, day)
-        where(year: year, week: week, day: day).group(:hour, :slot).count
+        where(year: year, week: week, day: day, status: :active).group(:hour, :slot).count
     end
 
     def to_param

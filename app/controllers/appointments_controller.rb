@@ -5,6 +5,13 @@ class AppointmentsController < ApplicationController
         @appointment = Appointment.find_by_uuid params[:uuid]
     end
 
+    def cancel
+        appointment = Appointment.find_by_uuid params[:appointment_uuid]
+        appointment.status = 1
+        appointment.save!
+        redirect_back fallback_location: '/'
+    end
+
     def complete
         appointment = Appointment.find_by_uuid params[:appointment_uuid]
         appointment.status = 2

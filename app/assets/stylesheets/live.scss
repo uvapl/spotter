@@ -1,8 +1,5 @@
-// Place all the styles related to the live controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
-
-.card-x {
+.card-x
+{
     padding-top: 5px;
     padding-right: 5px;
     color: var(--bs-gray);
@@ -10,10 +7,25 @@
     cursor: pointer;
 }
 
-.card-x:hover {
+.card-x:hover
+{
     color: var(--bs-primary);
 }
 
-.live-row, .live-col {
+.live-row, .live-col
+{
     transition: opacity 0.4s;
+}
+
+.card
+{
+    &.done
+    {
+        
+        background: linear-gradient(to bottom right, white 50%, orange 50.3%, white 50.4%);
+    }
+    &.cancelled
+    {
+        background: linear-gradient(to bottom right, white 50%, red 50.3%, white 50.4%);
+    }
 }
