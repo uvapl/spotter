@@ -44,4 +44,12 @@ class Course < ApplicationRecord
                     year, week, day, hour, (slot-1).to_f/course.slots*60)
     end
 
+    def locations
+        begin
+            loc = YAML.safe_load self.location
+        rescue
+            nil
+        end
+    end
+
 end

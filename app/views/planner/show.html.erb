@@ -36,9 +36,16 @@
             <%= form.text_field :subject, class: "form-control", placeholder: "Assignment", value: "", required: true, autofocus: true %>
             <%= form.label :subject do 'Assignment' end %>
         </div>
-        <div class="form-floating mt-4">
+        <h5 class="text-center text-muted fw-light mt-4">Where will you meet?</h5>
+        <div class="form-floating mt-4 fs-5">
+            <% if Hash === @course.locations %>
+            <%= form.collection_radio_buttons :location, @course.locations, :second, :first do |b|
+                content_tag(:div, class: 'form-check form-check-inline ps-1 pb-1') { b.label { b.radio_button(required: true) + " " + b.text } }
+            end %>
+            <% else %>
             <%= form.text_field :location, class: "form-control", placeholder: "Link/locatie", value: @course.location, required: true %>
-            <%= form.label :location do 'Location (room number or zoom link)' end %>
+            <%= form.label :location do 'Location' end %>
+            <% end %>
         </div>
     </div>
 </div>

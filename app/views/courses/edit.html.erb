@@ -21,7 +21,7 @@
                 <%= form.label :subject do 'Minimale aanloop (minuten)' end %>
             </div>
             <div class="form-floating mt-4">
-                <%= form.text_field :location, class: "form-control", placeholder: "Standaard locatie", required: true %>
+                <%= form.text_area :location, class: "form-control", placeholder: "Standaard locatie", required: true, style: 'height: 5rem;' %>
                 <%= form.label :subject do 'Standaard locatie' end %>
             </div>
             <button class="w-100 btn btn-lg btn-primary mt-4" type="submit">Opslaan</button>
