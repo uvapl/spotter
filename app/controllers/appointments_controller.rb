@@ -47,6 +47,12 @@ class AppointmentsController < ApplicationController
         best_match_hour, best_match_slot =
             course.first_available_slot_starting_from year, week, day, hour, slot
 
+        # in case radio buttons are offered for the location,
+        # user-entered location will be in the :other_location field
+        location =
+            filter_params[:location] == "Other" && params[:other_location] ||
+            filter_params[:location]
+
         # anything's still available for chosen day?
         if best_match_hour
             @a = Appointment.create! user: current_user,
@@ -57,7 +63,7 @@ class AppointmentsController < ApplicationController
                                      week: week,
                                      year: year,
                                      subject: filter_params[:subject],
-                                     location: filter_params[:location],
+                                     location: location,
                                      uuid: Digest::UUID.uuid_v4
 
             AppointmentMailer.with(appointment: @a).confirmation_mail.deliver_later

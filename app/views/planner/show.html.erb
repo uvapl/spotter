@@ -33,19 +33,32 @@
     <div class="col-lg-6">
         <h5 class="text-center text-muted fw-light">What would you like to talk about?</h5>
         <div class="form-floating mt-4">
-            <%= form.text_field :subject, class: "form-control", placeholder: "Assignment", value: "", required: true, autofocus: true %>
+            <%= form.text_field :subject, class: "form-control", placeholder: "Assignment", value: "", required: true, autofocus: true, autocomplete: 'off' %>
             <%= form.label :subject do 'Assignment' end %>
         </div>
-        <h5 class="text-center text-muted fw-light mt-4">Where will you meet?</h5>
-        <div class="form-floating mt-4 fs-5">
-            <% if Hash === @course.locations %>
-            <%= form.collection_radio_buttons :location, @course.locations, :second, :first do |b|
-                content_tag(:div, class: 'form-check form-check-inline ps-1 pb-1') { b.label { b.radio_button(required: true) + " " + b.text } }
-            end %>
-            <% else %>
-            <%= form.text_field :location, class: "form-control", placeholder: "Link/locatie", value: @course.location, required: true %>
-            <%= form.label :location do 'Location' end %>
+        <h5 class="text-center text-muted fw-light mt-4 mb-3">Where will you meet?</h5>
+        <div class="fs-5">
+        <% if Hash === @course.locations %>
+        <%= form.collection_radio_buttons :location, @course.locations, :second, :first do |b| %>
+        <% if b.value == 'Other' %>
+        <div class="form-check form-check-inline ps-1 pb-1">
+            <%= form.label :location_other do %>
+            <%= form.radio_button(:location, 'Other') %> <%= b.text %> 
             <% end %>
+            <!-- <div class=" mt-4"> -->
+                <%= text_field_tag :other_location, '', class: "form-control d-inline-block w-auto", placeholder: "Link" %>
+            <!-- </div> -->
+        </div>
+        <% else %>
+        <% content_tag(:div, class: 'form-check form-check-inline ps-1 pb-1') { b.label { b.radio_button(required: true) + " " + b.text } } %>
+        <% end %>
+        <% end %>
+        <% else %>
+        <div class="form-floating mt-4">
+        <%= form.text_field :location, class: "form-control", placeholder: "Link/locatie", value: @course.location, required: true %>
+        <%= form.label :location do 'Location' end %>
+        </div>
+        <% end %>
         </div>
     </div>
 </div>
