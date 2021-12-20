@@ -16,7 +16,8 @@
                     <%= button_to '✔️ Done', appointment_complete_path(appointment), method: :put, class: 'ms-3 btn btn-primary btn-sm float-end', form_class: 'd-inline-block' %>
                     <% end %>
                 <% elsif appointment.active? %>
-                    <%= button_to 'Me', appointment_claim_path(appointment), method: :put, class: 'ms-3 btn btn-primary btn-sm float-end', form_class: 'd-inline-block' %>
+                    <%= button_to '✖ Cancel', appointment_cancel_path(appointment), method: :put, class: 'ms-3 btn btn-primary btn-sm float-end', form_class: 'd-inline-block' %>
+                    <%= button_to 'Me!', appointment_claim_path(appointment), method: :put, class: 'ms-3 btn btn-primary btn-sm float-end', form_class: 'd-inline-block' %>
                 <% end %>
         </div>
     </div>
