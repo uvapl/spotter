@@ -7,6 +7,33 @@ class Appointment < ApplicationRecord
     # see https://api.rubyonrails.org/classes/ActiveRecord/Enum.html
     enum status: { active: 0, cancelled: 1, done: 2 }
 
+    after_create_commit  { broadcast_prepend_to 'appointments' }
+    after_save do
+        case status_previous_change
+        in [*, 'cancelled']
+            broadcast_remove_to 'appointments'
+        in ['active', 'done']
+            broadcast_replace_to 'appointments'
+        else
+        end
+    end
+
+    scope :all_remaining_for_today, -> do
+        date = Date.today
+        where(day: date.wday, week: date.cweek, year: date.year).
+        where(status: [:active]).
+        where("hour >= ?", DateTime.now.hour-1)
+    end
+
+    scope :grouped_by_start_time, -> do
+        group_by(&:starting_time).
+        sort {|a,b| a[0] <=> b[0]}
+    end
+    
+    scope :ordered_by_start_time, -> do
+        sort_by { |a| a.starting_time }
+    end
+
     def starting_time
         # exactly the library function we need
         CommercialTime.create(year, week, day, hour, (slot-1).to_f/course.slots*60)

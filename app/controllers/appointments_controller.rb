@@ -1,5 +1,6 @@
 class AppointmentsController < ApplicationController
     before_action :require_user
+    before_action :require_assistant, only: [ :complete, :claim ]
 
     def show
         @appointment = Appointment.find_by_uuid params[:uuid]
@@ -67,12 +68,13 @@ class AppointmentsController < ApplicationController
                                      uuid: Digest::UUID.uuid_v4
 
             AppointmentMailer.with(appointment: @a).confirmation_mail.deliver_later
+            redirect_to @a, notice: "Your appointment was made!"
         else
             redirect_to planner_path(course),
                 alert: "Unfortunately, timeslots are full for the day. Please select a new time below."
         end
     end
-    
+
     def filter_params
         params.require(:appointment).permit(:slot, :subject, :location)
     end

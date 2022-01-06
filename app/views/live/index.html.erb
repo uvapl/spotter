@@ -1,24 +1,13 @@
-<div class="row live-row">
-    <% if @appointments.count == 0 %>
+<%= turbo_stream_from "appointments" %>
+<div id="appointments" data-controller="sorted">
+    <%= render partial: "appointments/appointment", collection: @appointments %>
+</div>
+
+<div id="no_appointments_message" class="row live-row">
+    <% if @appointments.none? %>
         <div class="col-12 pb-5">
-            <h3 class="text-center">Geen afspraken meer! 😄</h3>
-            <h5 class="text-center text-muted fw-light">Alles opgelost...</h5>
+            <h3 class="text-center">Geen afspraken! 😄</h3>
+            <h5 class="text-center text-muted fw-light">Iedereen goed bezig...?</h5>
         </div>
     <% end %>
 </div>
-
-<% @appointments.each do |time, appointments| %>
-<div class="row live-row">
-    <hr>
-    <div class="col-3 col-md-2">
-        <h2 class="text-primary"><%= time.strftime('%H:%M') %></h2>
-    </div>
-    <div class="col-9 col-md-10">
-        <div class="row">
-            <%= render appointments %>
-        </div>
-    </div>
-</div>
-<% end %>
-
-<%= javascript_include_tag 'live' %>

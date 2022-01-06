@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '~> 3.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '~> 6.1.4'
+gem 'rails', '~> 7.0.0'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
 # Use Puma as the app server
@@ -39,6 +39,15 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'rack-cas'
+
 gem 'bootstrap', '~> 5.0.0'
+gem 'autoprefixer-rails', '~> 10.2.5'
 
 gem 'icalendar'
+
+gem 'importmap-rails'
+gem 'stimulus-rails'
+gem 'turbo-rails'
+
+# Use Redis for Action Cable
+gem "redis", "~> 4.0"
